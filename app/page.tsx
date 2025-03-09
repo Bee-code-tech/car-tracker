@@ -3,13 +3,13 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
 
-// Dynamically import the Map component with ssr disabled
+
 const MapComponent = dynamic(
   () => import('@/components/Map'),
   { ssr: false }
 );
 
-// Mock data for our tracking
+
 const trackingData = {
   orderId: "TRK-23891457",
   status: "in-transit",
@@ -18,38 +18,38 @@ const trackingData = {
   destination: "Chicago, IL",
   distance: "189 miles",
   timeRemaining: "2 hours 45 minutes",
+  sender: {
+    name: "Rod Cater",
+    address: "Sydney, Australia 🇦🇺"
+  },
+  receiver: {
+    name: "KARY BEARD",
+    address: "524 KINRO DR, CHESTER SOUTH CAROLINA 29706"
+  },
+  deliveryDateTime: "Saturday March 7pm",
   vehicle: {
     type: "Sedan",
     model: "Tesla Model 3",
     licensePlate: "EV-2023",
     driver: "John Smith",
     images: [
-      {
-        id: 1,
-        url: "https://images.unsplash.com/photo-1561729955-89a6a6d8ff43?auto=format&fit=crop&q=80&w=800",
-        alt: "Tesla Model 3 Front"
-      },
-      {
-        id: 2,
-        url: "https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&q=80&w=800",
-        alt: "Tesla Model 3 Side"
-      },
+      
       {
         id: 3,
-        url: "https://images.unsplash.com/photo-1593941707882-a5bfcf637281?auto=format&fit=crop&q=80&w=800",
+        url: "/car1.jpg",
         alt: "Tesla Model 3 Interior"
       },
       {
         id: 4,
-        url: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=800",
+        url: "car2.jpg",
         alt: "Tesla Model 3 Rear"
       }
     ]
   },
   coordinates: {
-    origin: [42.331429, -83.045753] as [number, number], // Detroit
-    current: [39.768403, -86.158068] as [number, number], // Indianapolis
-    destination: [41.878113, -87.629799] as [number, number] // Chicago
+    origin: [42.331429, -83.045753] as [number, number], 
+    current: [39.768403, -86.158068] as [number, number], 
+    destination: [41.878113, -87.629799] as [number, number] 
   },
   trackingHistory: [
     { 
@@ -109,6 +109,32 @@ const CarTrackingPage = () => {
         <div className="mb-6">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Track Your Vehicle</h1>
           <p className="text-sm md:text-base text-gray-600">Order ID: {trackingData.orderId}</p>
+        </div>
+
+        {/* Sender/Receiver Information */}
+        <div className="bg-white rounded-lg shadow-md p-4 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Sender Information */}
+            <div className="border-b md:border-b-0 md:border-r border-gray-200 pb-4 md:pb-0 md:pr-4">
+              <h2 className="text-lg font-bold text-gray-800 mb-2">Sender Information</h2>
+              <div className="space-y-1">
+                <p className="text-sm md:text-base font-medium">{trackingData.sender.name}</p>
+                <p className="text-xs md:text-sm text-gray-600">{trackingData.sender.address}</p>
+              </div>
+            </div>
+            
+            {/* Receiver Information */}
+            <div className="pt-4 md:pt-0 md:pl-4">
+              <h2 className="text-lg font-bold text-gray-800 mb-2">Receiver Information</h2>
+              <div className="space-y-1">
+                <p className="text-sm md:text-base font-medium">{trackingData.receiver.name}</p>
+                <p className="text-xs md:text-sm text-gray-600">{trackingData.receiver.address}</p>
+                <p className="text-xs md:text-sm text-blue-600 font-medium mt-3">
+                  Estimated Delivery: {trackingData.deliveryDateTime}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Map Container */}

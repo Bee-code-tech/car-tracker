@@ -1,41 +1,13 @@
 'use client'
 import { useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
+import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
 
-// Fix for default marker icons in react-leaflet
-L.Icon.Default.prototype.options.iconRetinaUrl = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png';
-L.Icon.Default.prototype.options.iconUrl = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png';
-L.Icon.Default.prototype.options.shadowUrl = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png';
-
-// Custom icons
-const greenIcon = new L.Icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
-
-const redIcon = new L.Icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
-
-const blueIcon = new L.Icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
+// Dynamically import the Map component with ssr disabled
+const MapComponent = dynamic(
+  () => import('@/components/Map'),
+  { ssr: false }
+);
 
 // Mock data for our tracking
 const trackingData = {
@@ -142,64 +114,10 @@ const CarTrackingPage = () => {
         {/* Map Container */}
         <div className="bg-white rounded-lg shadow-md mb-6 overflow-hidden">
           <div className="h-64 md:h-80 w-full">
-            <MapContainer 
-              center={[trackingData.coordinates.current[0], trackingData.coordinates.current[1]]} 
-              zoom={6} 
-              style={{ height: '100%', width: '100%' }}
-              zoomControl={false}
-            >
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              />
-              
-              {/* Origin marker */}
-              <Marker 
-                position={trackingData.coordinates.origin}
-                icon={greenIcon}
-              >
-                <Popup>
-                  <div>
-                    <h3 className="font-bold">Origin</h3>
-                    <p>Detroit, MI</p>
-                  </div>
-                </Popup>
-              </Marker>
-              
-              {/* Current location marker */}
-              <Marker 
-                position={trackingData.coordinates.current}
-                icon={blueIcon}
-              >
-                <Popup>
-                  <div>
-                    <h3 className="font-bold">Current Location</h3>
-                    <p>Indianapolis, IN</p>
-                  </div>
-                </Popup>
-              </Marker>
-              
-              {/* Destination marker */}
-              <Marker 
-                position={trackingData.coordinates.destination}
-                icon={redIcon}
-              >
-                <Popup>
-                  <div>
-                    <h3 className="font-bold">Destination</h3>
-                    <p>Chicago, IL</p>
-                  </div>
-                </Popup>
-              </Marker>
-              
-              {/* Route line */}
-              <Polyline 
-                positions={positions}
-                color="#3b82f6"
-                weight={4}
-                opacity={0.7}
-              />
-            </MapContainer>
+            <MapComponent 
+              coordinates={trackingData.coordinates}
+              positions={positions}
+            />
           </div>
         </div>
 

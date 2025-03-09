@@ -116,7 +116,7 @@ const CarTrackingPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Sender Information */}
             <div className="border-b md:border-b-0 md:border-r border-gray-200 pb-4 md:pb-0 md:pr-4">
-              <h2 className="text-lg font-bold text-gray-800 mb-2">Sender Information</h2>
+              <h2 className="text-lg font-bold text-gray-800 mb-2">Sender: </h2>
               <div className="space-y-1">
                 <p className="text-sm md:text-base font-medium text-gray-600">{trackingData.sender.name}</p>
                 <p className="text-xs md:text-sm text-gray-600">{trackingData.sender.address}</p>
@@ -125,7 +125,7 @@ const CarTrackingPage = () => {
             
             {/* Receiver Information */}
             <div className="pt-4 md:pt-0 md:pl-4">
-              <h2 className="text-lg font-bold text-gray-800 mb-2">Receiver Information</h2>
+              <h2 className="text-lg font-bold text-gray-800 mb-2">To: </h2>
               <div className="space-y-1">
                 <p className="text-sm md:text-base font-medium text-gray-500">{trackingData.receiver.name}</p>
                 <p className="text-xs md:text-sm text-gray-600">{trackingData.receiver.address}</p>

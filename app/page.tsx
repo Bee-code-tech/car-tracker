@@ -248,19 +248,19 @@ const CarTrackingPage = () => {
             <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-4 text-sm md:text-base">
               <div>
                 <p className="text-xs md:text-sm text-gray-600">Vehicle Type</p>
-                <p className="font-semibold">{trackingData.vehicle.type}</p>
+                <p className="font-semibold text-gray-600">{trackingData.vehicle.type}</p>
               </div>
               <div>
                 <p className="text-xs md:text-sm text-gray-600">Model</p>
-                <p className="font-semibold">{trackingData.vehicle.model}</p>
+                <p className="font-semibold text-gray-600">{trackingData.vehicle.model}</p>
               </div>
               <div>
                 <p className="text-xs md:text-sm text-gray-600">License Plate</p>
-                <p className="font-semibold">{trackingData.vehicle.licensePlate}</p>
+                <p className="font-semibold text-gray-600">{trackingData.vehicle.licensePlate}</p>
               </div>
               <div>
                 <p className="text-xs md:text-sm text-gray-600">Driver</p>
-                <p className="font-semibold">{trackingData.vehicle.driver}</p>
+                <p className="font-semibold text-gray-600">{trackingData.vehicle.driver}</p>
               </div>
             </div>
           </div>

@@ -29,7 +29,7 @@ const trackingData = {
   deliveryDateTime: "Saturday March 7pm",
   vehicle: {
     type: "Sedan",
-    model: "Tesla Model 3",
+    model: "Corvette C7",
     licensePlate: "EV-2023",
     driver: "John Smith",
     images: [
